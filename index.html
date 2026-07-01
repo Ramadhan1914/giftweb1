@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untuk Kamu 💜</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ============================================================
+     ⚙️ BAGIAN YANG PALING SERING DIEDIT ADA DI SINI (CONFIG JS)
+     Cari komentar "EDIT DI SINI" paling bawah di bagian <script>
+     ============================================================ */
+
+    :root {
+      --deep: #1f1033;
+      --deep2: #2d1650;
+      --purple: #6d28d9;
+      --purple-light: #a78bfa;
+      --lilac: #d8b4fe;
+      --pink-accent: #f0abfc;
+      --gold: #fcd34d;
+      --text-soft: #ede9fe;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--deep);
+      color: var(--text-soft);
+      font-family: 'Quicksand', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .screen {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: radial-gradient(circle at 50% 20%, var(--deep2), var(--deep) 70%);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    /* ---------- Hujan emoji ---------- */
+    #emoji-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .falling-emoji {
+      position: absolute;
+      top: -10%;
+      font-size: 22px;
+      opacity: 0.85;
+      animation-name: fall;
+      animation-timing-function: linear;
+      filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.35));
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(115vh) rotate(360deg);
+      }
+    }
+
+    /* ---------- Screen 1: Password Gate ---------- */
+    #screen-password .content {
+      position: relative;
+      z-index: 2;
+      max-width: 420px;
+    }
+
+    .eyebrow {
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--purple-light);
+      margin-bottom: 10px;
+    }
+
+    h1.title-script {
+      font-family: 'Dancing Script', cursive;
+      font-size: 52px;
+      color: var(--lilac);
+      margin: 0 0 8px 0;
+      text-shadow: 0 0 24px rgba(167, 139, 250, 0.5);
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-soft);
+      opacity: 0.85;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .lock-icon {
+      font-size: 34px;
+      margin-bottom: 14px;
+    }
+
+    #password-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(216, 180, 254, 0.4);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-soft);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 16px;
+      text-align: center;
+      outline: none;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    #password-input:focus {
+      border-color: var(--purple-light);
+      box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.15);
+    }
+
+    #password-hint {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--pink-accent);
+      opacity: 0.8;
+    }
+
+    #password-error {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #fca5a5;
+      min-height: 18px;
+    }
+
+    .btn-primary {
+      margin-top: 20px;
+      padding: 12px 34px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--purple), var(--pink-accent));
+      color: white;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(109, 40, 217, 0.45);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(109, 40, 217, 0.55);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0px);
+    }
+
+    /* ---------- Screen 2: Amplop ---------- */
+    #screen-envelope .content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .envelope-wrap {
+      cursor: pointer;
+      width: 260px;
+      height: 180px;
+      margin: 30px auto 10px;
+      position: relative;
+      perspective: 1000px;
+    }
+
+    .envelope-body {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #7c3aed, #5b21b6);
+      border-radius: 10px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+    }
+
+    .envelope-body::before,
+    .envelope-body::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background: linear-gradient(145deg, #a78bfa, #8b5cf6);
+      clip-path: polygon(0 0, 100% 0, 50% 58%);
+      transform-origin: top;
+      transition: transform 0.6s cubic-bezier(.7, -0.4, .3, 1.4);
+      z-index: 3;
+    }
+
+    .envelope-wrap.opened .envelope-flap {
+      transform: rotateX(180deg);
+    }
+
+    .envelope-seal {
+      position: absolute;
+      top: 46%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 46px;
+      height: 46px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+      z-index: 4;
+      transition: opacity 0.3s;
+    }
+
+    .envelope-wrap.opened .envelope-seal {
+      opacity: 0;
+    }
+
+    .letter-peek {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      bottom: 6%;
+      height: 70%;
+      background: #fdf4ff;
+      border-radius: 6px 6px 0 0;
+      transform: translateY(90%);
+      transition: transform 0.5s ease 0.15s;
+      z-index: 2;
+    }
+
+    .envelope-wrap.opened .letter-peek {
+      transform: translateY(6%);
+    }
+
+    .envelope-hint {
+      font-size: 14px;
+      color: var(--purple-light);
+      margin-top: 6px;
+      animation: pulse 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* ---------- Screen 3: Ucapan ---------- */
+    #screen-message .content {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+    }
+
+    .message-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(216, 180, 254, 0.25);
+      border-radius: 20px;
+      padding: 36px 30px;
+      backdrop-filter: blur(6px);
+    }
+
+    .message-to {
+      font-family: 'Dancing Script', cursive;
+      font-size: 30px;
+      color: var(--pink-accent);
+      margin-bottom: 6px;
+    }
+
+    .message-body {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text-soft);
+      text-align: left;
+      white-space: pre-line;
+    }
+
+    .message-from {
+      margin-top: 22px;
+      font-size: 14px;
+      color: var(--purple-light);
+      text-align: right;
+      font-style: italic;
+    }
+
+    /* ---------- Screen 3b: Galeri ---------- */
+    .gallery-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 34px;
+      color: var(--lilac);
+      margin: 46px 0 20px 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    .photo-slot {
+      aspect-ratio: 1/1;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #4c1d95, #7c3aed, #c084fc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      padding: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+
+    .footer-note {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--purple-light);
+      opacity: 0.7;
+    }
+
+    /* ---------- Back button ---------- */
+    .btn-back {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 5;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(216, 180, 254, 0.35);
+      color: var(--text-soft);
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .btn-back:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateX(-2px);
+    }
+
+    /* ---------- Music toggle ---------- */
+    #music-toggle {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 50;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--pink-accent));
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(109, 40, 217, 0.5);
+      transition: transform 0.15s;
+    }
+
+    #music-toggle:hover {
+      transform: scale(1.08);
+    }
+
+    #music-toggle.playing {
+      animation: spin 3.5s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1.title-script {
+        font-size: 40px;
+      }
+
+      .envelope-wrap {
+        width: 210px;
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="emoji-rain"></div>
+
+  <audio id="bg-music" loop></audio>
+  <button id="music-toggle" onclick="toggleMusic()" title="Putar musik">🎵</button>
+
+  <!-- ================= SCREEN 1: PASSWORD ================= -->
+  <section class="screen active" id="screen-password">
+    <div class="content">
+      <div class="lock-icon">🔐</div>
+      <div class="eyebrow">Sebuah kado kecil</div>
+      <h1 class="title-script">Halo, Thayaa</h1>
+      <p class="subtitle">Sebelum lanjut, masukin dulu kata sandinya ya~<br>(hint: nama panggilan kamu sendiri 😉)</p>
+      <input type="text" id="password-input" placeholder="Ketik kata sandi..." autocomplete="off">
+      <div id="password-error"></div>
+      <br>
+      <button class="btn-primary" onclick="checkPassword()">Buka</button>
+      <div id="password-hint">Petunjuk: nama panggilan~</div>
+    </div>
+  </section>
+
+  <!-- ================= SCREEN 2: AMPLOP ================= -->
+  <section class="screen" id="screen-envelope">
+    <button class="btn-back" onclick="goToPassword()">← Kembali</button>
+    <div class="content">
+      <div class="eyebrow">Untukmu</div>
+      <h1 class="title-script">Ada Surat Nih</h1>
+      <div class="envelope-wrap" id="envelope" onclick="openEnvelope()">
+        <div class="envelope-body">
+          <div class="letter-peek"></div>
+          <div class="envelope-flap"></div>
+          <div class="envelope-seal">💜</div>
+        </div>
+      </div>
+      <div class="envelope-hint">Ketuk amplopnya ✨</div>
+    </div>
+  </section>
+
+  <!-- ================= SCREEN 3: UCAPAN + GALERI ================= -->
+  <section class="screen" id="screen-message">
+    <button class="btn-back" onclick="goToEnvelope()">← Kembali</button>
+    <div class="content">
+      <div class="message-card">
+        <div class="message-to">Untuk adek ku yang sombong 💌</div>
+        <div class="message-body" id="message-body">Selamat ulang tahun, ya!
+
+          Semoga di umur yang baru ini, semua hal baik makin sering datang ke hidup kamu. Semoga sehat terus, makin
+          bahagia, dan makin disayang orang-orang di sekitar kamu.
+
+          Ini cuma kado kecil, tapi dibuat dengan usaha (dan sedikit drama coding, wkwk). Semoga hari kamu spesial ya
+          hari ini 🎉💜</div>
+        <div class="message-from">— dari seseorang yang peduli sama kamu</div>
+      </div>
+
+      <div class="gallery-title">Sedikit Kenangan 📸</div>
+      <div class="gallery-grid" id="gallery-grid">
+        <div class="photo-slot">Foto 1</div>
+        <div class="photo-slot">Foto 2</div>
+        <div class="photo-slot">Foto 3</div>
+        <div class="photo-slot">Foto 4</div>
+        <div class="photo-slot">Foto 5</div>
+        <div class="photo-slot">Foto 6</div>
+      </div>
+
+      <div class="footer-note">Made with 💜 khusus buat kamu</div>
+    </div>
+  </section>
+
+  <script>
+    /* ============================================================
+       ✏️ EDIT DI SINI — semua yang perlu diganti ada di bawah ini
+       ============================================================ */
+
+    const CONFIG = {
+      // Password buat masuk (huruf besar/kecil gak masalah)
+      password: "athayakayaomom",
+
+      // Emoji yang jatuh di background (boleh diganti-ganti)
+      rainEmojis: ["💜", "🌸", "✨", "🦋", "💐"],
+      rainCount: 28,
+
+      // Link/lokasi file musik. Kalau mau upload sendiri:
+      // 1. Taruh file musiknya (misal "musik.mp3") di folder yang sama dengan file HTML ini
+      // 2. Ganti musicUrl jadi "musik.mp3" (nama filenya persis)
+      // Browser biasanya blokir autoplay, jadi musik akan mulai saat tombol 🎵 di klik.
+      musicUrl: "musik.mp3",
+
+      // Isi ucapan bisa diganti langsung di HTML pada bagian
+      // <div class="message-body" id="message-body"> ... </div>
+
+      // Foto: isi array ini dengan link foto (bisa upload ke imgur/drive/dll)
+      // Kosongkan array (photos: []) kalau belum ada foto, nanti otomatis pakai placeholder di atas.
+      photos: [
+        "foto/1.jpg",
+        "foto/2.jpg",
+        "foto/3.jpg",
+        "foto/4.jpg",
+        "foto/5.jpg",
+        "foto/6.jpg"
+      ]
+    };
+
+    /* ============================================================
+       Logic — gak perlu diedit kecuali mau ubah behavior
+       ============================================================ */
+
+    // Hujan emoji
+    function startEmojiRain() {
+      const container = document.getElementById('emoji-rain');
+      for (let i = 0; i < CONFIG.rainCount; i++) {
+        const span = document.createElement('span');
+        span.className = 'falling-emoji';
+        span.textContent = CONFIG.rainEmojis[Math.floor(Math.random() * CONFIG.rainEmojis.length)];
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.fontSize = (16 + Math.random() * 16) + 'px';
+        const duration = 6 + Math.random() * 8;
+        span.style.animationDuration = duration + 's';
+        span.style.animationDelay = (Math.random() * duration) + 's';
+        span.style.animationIterationCount = 'infinite';
+        container.appendChild(span);
+      }
+    }
+    startEmojiRain();
+
+    // Cek password
+    function checkPassword() {
+      const input = document.getElementById('password-input').value.trim().toLowerCase();
+      const errorEl = document.getElementById('password-error');
+      if (input === CONFIG.password.toLowerCase()) {
+        errorEl.textContent = '';
+        document.getElementById('screen-password').classList.remove('active');
+        document.getElementById('screen-envelope').classList.add('active');
+        // coba nyalain musik otomatis begitu password benar (ini interaksi pertama user)
+        if (CONFIG.musicUrl && musicEl.paused) {
+          musicEl.play().then(() => {
+            document.getElementById('music-toggle').classList.add('playing');
+            document.getElementById('music-toggle').textContent = '🎶';
+          }).catch(() => { });
+        }
+      } else {
+        errorEl.textContent = 'Coba lagi deh, kata sandinya belum pas~';
+      }
+    }
+    document.getElementById('password-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+
+    // Setup musik
+    const musicEl = document.getElementById('bg-music');
+    if (CONFIG.musicUrl) { musicEl.src = CONFIG.musicUrl; }
+    function toggleMusic() {
+      const btn = document.getElementById('music-toggle');
+      if (!CONFIG.musicUrl) {
+        alert('Belum ada file musiknya nih. Taruh file mp3 di folder yang sama, terus isi CONFIG.musicUrl di kode ya~');
+        return;
+      }
+      if (musicEl.paused) {
+        musicEl.play().catch(() => { });
+        btn.classList.add('playing');
+        btn.textContent = '🎶';
+      } else {
+        musicEl.pause();
+        btn.classList.remove('playing');
+        btn.textContent = '🎵';
+      }
+    }
+
+    // Navigasi back
+    function goToPassword() {
+      document.getElementById('screen-envelope').classList.remove('active');
+      document.getElementById('screen-password').classList.add('active');
+    }
+    function goToEnvelope() {
+      document.getElementById('screen-message').classList.remove('active');
+      document.getElementById('screen-envelope').classList.add('active');
+      // reset amplop supaya bisa dibuka ulang animasinya
+      document.getElementById('envelope').classList.remove('opened');
+    }
+
+    // Buka amplop
+    function openEnvelope() {
+      const envelope = document.getElementById('envelope');
+      if (envelope.classList.contains('opened')) {
+        goToMessage();
+        return;
+      }
+      envelope.classList.add('opened');
+      setTimeout(goToMessage, 900);
+    }
+    function goToMessage() {
+      document.getElementById('screen-envelope').classList.remove('active');
+      document.getElementById('screen-message').classList.add('active');
+      renderGallery();
+      // coba nyalain musik otomatis (biasanya berhasil karena user udah klik amplop)
+      if (CONFIG.musicUrl && musicEl.paused) {
+        musicEl.play().then(() => {
+          document.getElementById('music-toggle').classList.add('playing');
+          document.getElementById('music-toggle').textContent = '🎶';
+        }).catch(() => { });
+      }
+    }
+
+    // Render galeri foto (pakai link dari CONFIG kalau ada)
+    function renderGallery() {
+      if (CONFIG.photos.length === 0) return; // biarkan placeholder default
+      const grid = document.getElementById('gallery-grid');
+      grid.innerHTML = '';
+      CONFIG.photos.forEach((url, i) => {
+        const slot = document.createElement('div');
+        slot.className = 'photo-slot';
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = 'Foto ' + (i + 1);
+        slot.appendChild(img);
+        grid.appendChild(slot);
+      });
+    }
+  </script>
+
+</body>
+
+</html>
