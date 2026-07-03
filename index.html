@@ -57,7 +57,7 @@
       display: flex;
     }
 
-    /* ---------- Hujan emoji ---------- */
+    /* ---------- Hujan emoji ambient (background tipis di semua layar) ---------- */
     #emoji-rain {
       position: fixed;
       top: 0;
@@ -84,6 +84,54 @@
         transform: translateY(115vh) rotate(360deg);
       }
     }
+
+    /* ---------- Screen 0: Countdown ---------- */
+    #screen-countdown .content {
+      position: relative;
+      z-index: 2;
+      max-width: 460px;
+    }
+
+    .countdown-grid {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 26px 0 10px;
+    }
+
+    .countdown-box {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(216, 180, 254, 0.3);
+      border-radius: 14px;
+      padding: 14px 16px;
+      min-width: 68px;
+    }
+
+    .countdown-num {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--lilac);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--purple-light);
+      margin-top: 4px;
+    }
+
+    #countdown-message {
+      display: none;
+      font-family: 'Dancing Script', cursive;
+      font-size: 30px;
+      color: var(--pink-accent);
+      margin: 26px 0 10px;
+      animation: pulse 1.2s infinite ease-in-out;
+    }
+
 
     /* ---------- Screen 1: Password Gate ---------- */
     #screen-password .content {
@@ -178,93 +226,104 @@
       transform: translateY(0px);
     }
 
-    /* ---------- Screen 2: Amplop ---------- */
-    #screen-envelope .content {
+    /* ---------- Screen 2: Hujan Foto ---------- */
+    #screen-photorain {
+      padding-top: 60px;
+    }
+
+    .photorain-stage {
       position: relative;
+      width: 100%;
+      max-width: 520px;
+      height: 68vh;
+      overflow: hidden;
+      margin-top: 10px;
       z-index: 2;
     }
 
-    .envelope-wrap {
-      cursor: pointer;
-      width: 260px;
-      height: 180px;
-      margin: 30px auto 10px;
-      position: relative;
-      perspective: 1000px;
-    }
-
-    .envelope-body {
+    .falling-photo {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(145deg, #7c3aed, #5b21b6);
+      top: -110px;
+      width: 68px;
+      height: 68px;
       border-radius: 10px;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
       overflow: hidden;
-    }
-
-    .envelope-body::before,
-    .envelope-body::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-style: solid;
-    }
-
-    .envelope-flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 100%;
-      background: linear-gradient(145deg, #a78bfa, #8b5cf6);
-      clip-path: polygon(0 0, 100% 0, 50% 58%);
-      transform-origin: top;
-      transition: transform 0.6s cubic-bezier(.7, -0.4, .3, 1.4);
-      z-index: 3;
-    }
-
-    .envelope-wrap.opened .envelope-flap {
-      transform: rotateX(180deg);
-    }
-
-    .envelope-seal {
-      position: absolute;
-      top: 46%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 46px;
-      height: 46px;
-      background: var(--gold);
-      border-radius: 50%;
+      background: linear-gradient(135deg, #4c1d95, #7c3aed, #c084fc);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
-      z-index: 4;
-      transition: opacity 0.3s;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 10px;
+      font-weight: 700;
+      text-align: center;
+      padding: 4px;
+      transition: top 1.3s cubic-bezier(.25, .85, .35, 1), transform 1.3s ease;
+      border: 2px solid rgba(255, 255, 255, 0.5);
     }
 
-    .envelope-wrap.opened .envelope-seal {
-      opacity: 0;
+    .falling-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .letter-peek {
-      position: absolute;
-      left: 8%;
-      right: 8%;
-      bottom: 6%;
-      height: 70%;
-      background: #fdf4ff;
-      border-radius: 6px 6px 0 0;
-      transform: translateY(90%);
-      transition: transform 0.5s ease 0.15s;
+    .photorain-hint {
+      margin-top: 14px;
+      font-size: 14px;
+      color: var(--purple-light);
+      cursor: pointer;
+      animation: pulse 1.8s infinite ease-in-out;
+      position: relative;
       z-index: 2;
     }
 
-    .envelope-wrap.opened .letter-peek {
-      transform: translateY(6%);
+    /* ---------- Screen 3: Bunga + Surat ---------- */
+    #screen-flower .content {
+      position: relative;
+      z-index: 2;
+      max-width: 420px;
+    }
+
+    .flower-wrap {
+      position: relative;
+      width: 260px;
+      margin: 20px auto 6px;
+    }
+
+    .flower-image {
+      width: 100%;
+      display: block;
+      opacity: 0;
+      transform: scale(0.55) translateY(40px);
+      transition: opacity 0.9s cubic-bezier(.34, 1.56, .64, 1), transform 0.9s cubic-bezier(.34, 1.56, .64, 1);
+      filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.45));
+    }
+
+    .flower-wrap.bloomed .flower-image {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .flower-letter {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      font-size: 34px;
+      cursor: pointer;
+      z-index: 3;
+      transition: transform 0.5s cubic-bezier(.34, 1.56, .64, 1) 0.7s;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+    }
+
+    .flower-wrap.bloomed .flower-letter {
+      transform: translate(-50%, -50%) scale(1);
+      animation: pulse 1.6s infinite ease-in-out 1.2s;
+    }
+
+    .flower-letter:hover {
+      transform: translate(-50%, -50%) scale(1.15) !important;
     }
 
     .envelope-hint {
@@ -286,7 +345,7 @@
       }
     }
 
-    /* ---------- Screen 3: Ucapan ---------- */
+    /* ---------- Screen 4: Ucapan ---------- */
     #screen-message .content {
       position: relative;
       z-index: 2;
@@ -324,12 +383,18 @@
       font-style: italic;
     }
 
-    /* ---------- Screen 3b: Galeri ---------- */
+    /* ---------- Screen 5: Galeri (penutup) ---------- */
+    #screen-gallery .content {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+    }
+
     .gallery-title {
       font-family: 'Dancing Script', cursive;
       font-size: 34px;
       color: var(--lilac);
-      margin: 46px 0 20px 0;
+      margin: 0 0 20px 0;
     }
 
     .gallery-grid {
@@ -442,9 +507,9 @@
         font-size: 40px;
       }
 
-      .envelope-wrap {
-        width: 210px;
-        height: 150px;
+      .flower-wrap {
+        width: 190px;
+        height: 190px;
       }
     }
   </style>
@@ -457,55 +522,101 @@
   <audio id="bg-music" loop></audio>
   <button id="music-toggle" onclick="toggleMusic()" title="Putar musik">🎵</button>
 
+  <!-- ================= SCREEN 0: COUNTDOWN ================= -->
+  <section class="screen active" id="screen-countdown">
+    <div class="content">
+      <div class="lock-icon">🎂</div>
+      <div class="eyebrow">Belum waktunya~</div>
+      <h1 class="title-script">Sabar Ya...</h1>
+      <p class="subtitle">Kado ini baru bisa dibuka pas hari ulang tahun kamu.<br>Tunggu sebentar lagi ya~</p>
+      <div class="countdown-grid" id="countdown-grid">
+        <div class="countdown-box">
+          <div class="countdown-num" id="cd-days">00</div>
+          <div class="countdown-label">Hari</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-num" id="cd-hours">00</div>
+          <div class="countdown-label">Jam</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-num" id="cd-minutes">00</div>
+          <div class="countdown-label">Menit</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-num" id="cd-seconds">00</div>
+          <div class="countdown-label">Detik</div>
+        </div>
+      </div>
+      <div id="countdown-message">Waktunya udah tiba! 🎉</div>
+    </div>
+  </section>
+
+
   <!-- ================= SCREEN 1: PASSWORD ================= -->
   <section class="screen active" id="screen-password">
     <div class="content">
       <div class="lock-icon">🔐</div>
       <div class="eyebrow">Sebuah kado kecil</div>
-      <h1 class="title-script">Halo, Sayang...</h1>
+      <h1 class="title-script">Halo, Nisvya...</h1>
       <p class="subtitle">Sebelum lanjut, masukin dulu kata sandinya ya~<br>(hint: nama lengkap kamu sendiri 😉)</p>
       <input type="text" id="password-input" placeholder="Ketik kata sandi..." autocomplete="off">
       <div id="password-error"></div>
       <br>
       <button class="btn-primary" onclick="checkPassword()">Buka</button>
-      <div id="password-hint">Petunjuk: nama kamu~</div>
+      <div id="password-hint">Petunjuk: nama lengkap~</div>
     </div>
   </section>
 
-  <!-- ================= SCREEN 2: AMPLOP ================= -->
-  <section class="screen" id="screen-envelope">
-    <button class="btn-back" onclick="goToPassword()">← Kembali</button>
+  <!-- ================= SCREEN 2: HUJAN FOTO ================= -->
+  <section class="screen" id="screen-photorain">
+    <button class="btn-back" onclick="goToPasswordScreen()">← Kembali</button>
+    <div class="eyebrow">Sedikit kenangan turun dulu</div>
+    <h1 class="title-script" style="font-size:38px;">Tunggu Sebentar~</h1>
+    <div class="photorain-stage" id="photorain-stage"></div>
+    <div class="photorain-hint" onclick="goToFlowerScreen()">Ketuk buat lanjut ✨</div>
+  </section>
+
+  <!-- ================= SCREEN 3: BUNGA + SURAT ================= -->
+  <section class="screen" id="screen-flower">
+    <button class="btn-back" onclick="goToPhotoRainScreen()">← Kembali</button>
     <div class="content">
       <div class="eyebrow">Untukmu</div>
-      <h1 class="title-script">Ada Surat Nih</h1>
-      <div class="envelope-wrap" id="envelope" onclick="openEnvelope()">
-        <div class="envelope-body">
-          <div class="letter-peek"></div>
-          <div class="envelope-flap"></div>
-          <div class="envelope-seal">💜</div>
-        </div>
+      <h1 class="title-script">Ada Kejutan</h1>
+      <div class="flower-wrap" id="flower-wrap">
+        <img src="bunga.png" alt="Bunga untukmu" class="flower-image">
+        <div class="flower-letter" id="flower-letter" onclick="openLetter()">💌</div>
       </div>
-      <div class="envelope-hint">Ketuk amplopnya ✨</div>
+      <div class="envelope-hint">Klik suratnya ya~ 💜</div>
     </div>
   </section>
 
-  <!-- ================= SCREEN 3: UCAPAN + GALERI ================= -->
+  <!-- ================= SCREEN 4: UCAPAN ================= -->
   <section class="screen" id="screen-message">
-    <button class="btn-back" onclick="goToEnvelope()">← Kembali</button>
+    <button class="btn-back" onclick="goToFlowerScreen()">← Kembali</button>
     <div class="content">
       <div class="message-card">
-        <div class="message-to">Untuk adek ku yang sombong 💌</div>
-        <div class="message-body" id="message-body">Selamat ulang tahun, ya!
-
-          Semoga di umur yang baru ini, semua hal baik makin sering datang ke hidup kamu. Semoga sehat terus, makin
-          bahagia, dan makin disayang orang-orang di sekitar kamu.
-
-          Ini cuma kado kecil, tapi dibuat dengan usaha (dan sedikit drama coding, wkwk). Semoga hari kamu spesial ya
-          hari ini 🎉💜</div>
+        <div class="message-to">Untuk Kamu... 💌</div>
+        <div class="message-body" id="message-body">Happy Birthday!
+          Hari ini aku pengen kamu ngerasain semua hal positif
+          dan keajaiban yang cuma bisa didapetin kalo kamu ada di dunia ini. Semoga segala keinginanmu tercapai, apalagi
+          yang kocak-kocak dan gak biasa, karena kamu tuh unik banget! Aku selalu percaya kalau kamu bisa melewati semua
+          tantangan dengan kekuatan dan semangat yang luar biasa. Terima kasih udah jadi bagian hidup aku yang paling
+          berharga. Kamu bener-bener bikin hari-hari aku jadi lebih berarti dan penuh warna. Semoga di tahun yang baru
+          ini, kamu makin bahagia, makin sukses, dan tentunya makin cantik (walaupun udah cantik banget sih!). sampai
+          bertemu lagi, jika ditakdirkan see youu.
+          I love you so much! 💕`;</div>
         <div class="message-from">— dari seseorang yang peduli sama kamu</div>
       </div>
+      <br>
+      <button class="btn-primary" onclick="goToGalleryScreen()">Selanjutnya →</button>
+    </div>
+  </section>
 
-      <div class="gallery-title">Sedikit Kenangan 📸</div>
+  <!-- ================= SCREEN 5: GALERI (PENUTUP) ================= -->
+  <section class="screen" id="screen-gallery">
+    <button class="btn-back" onclick="goToMessageScreen()">← Kembali</button>
+    <div class="content">
+      <div class="gallery-title">Sedikit foto-foto kamu... 📸</div>
       <div class="gallery-grid" id="gallery-grid">
         <div class="photo-slot">Foto 1</div>
         <div class="photo-slot">Foto 2</div>
@@ -513,8 +624,25 @@
         <div class="photo-slot">Foto 4</div>
         <div class="photo-slot">Foto 5</div>
         <div class="photo-slot">Foto 6</div>
+        <div class="photo-slot">Foto 7</div>
+        <div class="photo-slot">Foto 8</div>
+        <div class="photo-slot">Foto 9</div>
+        <div class="photo-slot">Foto 10</div>
+        <div class="photo-slot">Foto 11</div>
+        <div class="photo-slot">Foto 12</div>
+        <div class="photo-slot">Foto 13</div>
+        <div class="photo-slot">Foto 14</div>
+        <div class="photo-slot">Foto 15</div>
+        <div class="photo-slot">Foto 16</div>
+        <div class="photo-slot">Foto 17</div>
+        <div class="photo-slot">Foto 18</div>
+        <div class="photo-slot">Foto 19</div>
+        <div class="photo-slot">Foto 20</div>
+        <div class="photo-slot">Foto 21</div>
+        <div class="photo-slot">Foto 22</div>
+        <div class="photo-slot">Foto 23</div>
+        <div class="photo-slot">Foto 24</div>
       </div>
-
       <div class="footer-note">Made with 💜 khusus buat kamu</div>
     </div>
   </section>
@@ -525,12 +653,24 @@
        ============================================================ */
 
     const CONFIG = {
+      // Tanggal & jam website ini boleh mulai dibuka (format: TAHUN-BULAN-TANGGALTJAM:MENIT:DETIK+07:00)
+      // +07:00 itu zona waktu WIB. Kalau dia di zona WITA ganti +08:00, WIT ganti +09:00.
+      // Sebelum tanggal/jam ini, yang muncul cuma layar hitung mundur.
+      targetDateTime: "2026-07-03T19:15:00+07:00",
+
       // Password buat masuk (huruf besar/kecil gak masalah)
       password: "nisvyaputricandyta",
 
-      // Emoji yang jatuh di background (boleh diganti-ganti)
+      // Emoji yang jatuh tipis-tipis di background semua layar
       rainEmojis: ["💜", "🌸", "✨", "🦋", "💐"],
-      rainCount: 28,
+      rainCount: 22,
+
+      // Berapa banyak "kartu foto" yang jatuh & numpuk di screen ke-2
+      // Kalau foto asli cuma sedikit, dia otomatis diulang biar tetap ramai
+      photoRainCount: 25,
+
+      // Gambar bunga yang muncul di screen ke-3 (taruh file "bunga.png" di folder yang sama)
+      // Kalau mau ganti gambar bunga lain, cari <img src="bunga.png"> di HTML dan ganti nama filenya
 
       // Link/lokasi file musik. Kalau mau upload sendiri:
       // 1. Taruh file musiknya (misal "musik.mp3") di folder yang sama dengan file HTML ini
@@ -541,15 +681,33 @@
       // Isi ucapan bisa diganti langsung di HTML pada bagian
       // <div class="message-body" id="message-body"> ... </div>
 
-      // Foto: isi array ini dengan link foto (bisa upload ke imgur/drive/dll)
-      // Kosongkan array (photos: []) kalau belum ada foto, nanti otomatis pakai placeholder di atas.
+      // Foto: isi array ini dengan link foto, atau nama file kalau ditaruh di folder "foto/"
+      // Kosongkan array (photos: []) kalau belum ada foto, nanti otomatis pakai placeholder.
       photos: [
-        "foto/1.jpg",
-        "foto/2.jpg",
-        "foto/3.jpg",
-        "foto/4.jpg",
-        "foto/5.jpg",
-        "foto/6.jpg"
+        "foto/1.jpeg",
+        "foto/2.jpeg",
+        "foto/3.jpeg",
+        "foto/4.jpeg",
+        "foto/5.jpeg",
+        "foto/6.jpeg",
+        "foto/7.jpeg",
+        "foto/8.jpeg",
+        "foto/9.jpeg",
+        "foto/10.jpeg",
+        "foto/11.jpeg",
+        "foto/12.jpeg",
+        "foto/13.jpeg",
+        "foto/14.jpeg",
+        "foto/15.jpeg",
+        "foto/16.jpeg",
+        "foto/17.jpeg",
+        "foto/18.jpeg",
+        "foto/19.jpeg",
+        "foto/20.jpeg",
+        "foto/21.jpeg",
+        "foto/22.jpeg",
+        "foto/23.jpeg",
+        "foto/24.jpeg"
       ]
     };
 
@@ -557,7 +715,7 @@
        Logic — gak perlu diedit kecuali mau ubah behavior
        ============================================================ */
 
-    // Hujan emoji
+    // Hujan emoji ambient
     function startEmojiRain() {
       const container = document.getElementById('emoji-rain');
       for (let i = 0; i < CONFIG.rainCount; i++) {
@@ -575,32 +733,17 @@
     }
     startEmojiRain();
 
-    // Cek password
-    function checkPassword() {
-      const input = document.getElementById('password-input').value.trim().toLowerCase();
-      const errorEl = document.getElementById('password-error');
-      if (input === CONFIG.password.toLowerCase()) {
-        errorEl.textContent = '';
-        document.getElementById('screen-password').classList.remove('active');
-        document.getElementById('screen-envelope').classList.add('active');
-        // coba nyalain musik otomatis begitu password benar (ini interaksi pertama user)
-        if (CONFIG.musicUrl && musicEl.paused) {
-          musicEl.play().then(() => {
-            document.getElementById('music-toggle').classList.add('playing');
-            document.getElementById('music-toggle').textContent = '🎶';
-          }).catch(() => { });
-        }
-      } else {
-        errorEl.textContent = 'Coba lagi deh, kata sandinya belum pas~';
-      }
-    }
-    document.getElementById('password-input').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') checkPassword();
-    });
-
     // Setup musik
     const musicEl = document.getElementById('bg-music');
     if (CONFIG.musicUrl) { musicEl.src = CONFIG.musicUrl; }
+    function tryAutoplayMusic() {
+      if (CONFIG.musicUrl && musicEl.paused) {
+        musicEl.play().then(() => {
+          document.getElementById('music-toggle').classList.add('playing');
+          document.getElementById('music-toggle').textContent = '🎶';
+        }).catch(() => { });
+      }
+    }
     function toggleMusic() {
       const btn = document.getElementById('music-toggle');
       if (!CONFIG.musicUrl) {
@@ -618,42 +761,151 @@
       }
     }
 
-    // Navigasi back
-    function goToPassword() {
-      document.getElementById('screen-envelope').classList.remove('active');
-      document.getElementById('screen-password').classList.add('active');
-    }
-    function goToEnvelope() {
-      document.getElementById('screen-message').classList.remove('active');
-      document.getElementById('screen-envelope').classList.add('active');
-      // reset amplop supaya bisa dibuka ulang animasinya
-      document.getElementById('envelope').classList.remove('opened');
+    // Navigasi generik antar screen
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
 
-    // Buka amplop
-    function openEnvelope() {
-      const envelope = document.getElementById('envelope');
-      if (envelope.classList.contains('opened')) {
-        goToMessage();
-        return;
+    // Cek password
+    function checkPassword() {
+      const input = document.getElementById('password-input').value.trim().toLowerCase();
+      const errorEl = document.getElementById('password-error');
+      if (input === CONFIG.password.toLowerCase()) {
+        errorEl.textContent = '';
+        tryAutoplayMusic(); // interaksi pertama user, momen paling aman buat autoplay
+        goToPhotoRainScreen();
+      } else {
+        errorEl.textContent = 'Coba lagi deh, kata sandinya belum pas~';
       }
-      envelope.classList.add('opened');
-      setTimeout(goToMessage, 900);
     }
-    function goToMessage() {
-      document.getElementById('screen-envelope').classList.remove('active');
-      document.getElementById('screen-message').classList.add('active');
+    document.getElementById('password-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+
+    // ---- Screen: Countdown ----
+    let __countdownTimer = null;
+    function startCountdown() {
+      const target = new Date(CONFIG.targetDateTime).getTime();
+      function tick() {
+        const diff = target - Date.now();
+        if (diff <= 0) {
+          clearInterval(__countdownTimer);
+          document.getElementById('countdown-grid').style.display = 'none';
+          document.getElementById('countdown-message').style.display = 'block';
+          setTimeout(() => { goToPasswordScreen(); }, 1800);
+          return;
+        }
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / (1000 * 60)) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+        document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+        document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+        document.getElementById('cd-minutes').textContent = String(m).padStart(2, '0');
+        document.getElementById('cd-seconds').textContent = String(s).padStart(2, '0');
+      }
+      tick();
+      clearInterval(__countdownTimer);
+      __countdownTimer = setInterval(tick, 1000);
+    }
+
+    // ---- Cek pas pertama buka web: udah lewat tanggal target apa belum ----
+    if (Date.now() >= new Date(CONFIG.targetDateTime).getTime()) {
+      showScreen('screen-password'); // udah lewat -> langsung ke password
+    } else {
+      showScreen('screen-countdown');
+      startCountdown();
+    }
+
+    // ---- Screen: Password ----
+    function goToPasswordScreen() {
+      showScreen('screen-password');
+    }
+
+    // ---- Screen: Hujan Foto ----
+    function goToPhotoRainScreen() {
+      showScreen('screen-photorain');
+      startPhotoRain();
+    }
+    function startPhotoRain() {
+      const stage = document.getElementById('photorain-stage');
+      stage.innerHTML = '';
+      const hasPhotos = CONFIG.photos.length > 0;
+      const count = CONFIG.photoRainCount || 12;
+      const stageWidth = stage.clientWidth || 320;
+      const stageHeight = stage.clientHeight || 400;
+      const cols = Math.max(3, Math.floor(stageWidth / 90));
+      const colWidth = stageWidth / cols;
+      let maxDelay = 0;
+
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = 'falling-photo';
+        if (hasPhotos) {
+          const img = document.createElement('img');
+          img.src = CONFIG.photos[i % CONFIG.photos.length];
+          el.appendChild(img);
+        } else {
+          el.textContent = 'Foto ' + ((i % 4) + 1);
+        }
+
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const jitterX = (Math.random() * 14 - 7);
+        const finalLeft = Math.max(4, col * colWidth + colWidth / 2 - 34 + jitterX);
+        const finalBottomOffset = 12 + row * 62 + Math.random() * 8;
+        const rot = (Math.random() * 22 - 11);
+
+        el.style.left = finalLeft + 'px';
+        el.style.top = '-110px';
+        stage.appendChild(el);
+
+        const delay = i * 260;
+        maxDelay = Math.max(maxDelay, delay + 1300);
+
+        setTimeout(() => {
+          const finalTop = Math.max(0, stageHeight - finalBottomOffset - 68);
+          el.style.top = finalTop + 'px';
+          el.style.transform = 'rotate(' + rot + 'deg)';
+        }, delay + 30);
+      }
+
+      // otomatis lanjut ke bunga setelah semua foto numpuk
+      clearTimeout(window.__photoRainAutoAdvance);
+      window.__photoRainAutoAdvance = setTimeout(() => {
+        if (document.getElementById('screen-photorain').classList.contains('active')) {
+          goToFlowerScreen();
+        }
+      }, maxDelay + 500);
+    }
+
+    // ---- Screen: Bunga + Surat ----
+    function goToFlowerScreen() {
+      clearTimeout(window.__photoRainAutoAdvance);
+      showScreen('screen-flower');
+      const wrap = document.getElementById('flower-wrap');
+      wrap.classList.remove('bloomed');
+      void wrap.offsetWidth; // reset animasi biar bisa mekar ulang tiap masuk screen ini
+      setTimeout(() => wrap.classList.add('bloomed'), 60);
+    }
+    function openLetter() {
+      const letter = document.getElementById('flower-letter');
+      letter.style.transform = 'translate(-50%,-50%) scale(1.35) rotate(8deg)';
+      setTimeout(() => { goToMessageScreen(); }, 320);
+    }
+
+    // ---- Screen: Ucapan ----
+    function goToMessageScreen() {
+      showScreen('screen-message');
+      tryAutoplayMusic();
+    }
+
+    // ---- Screen: Galeri (penutup) ----
+    function goToGalleryScreen() {
+      showScreen('screen-gallery');
       renderGallery();
-      // coba nyalain musik otomatis (biasanya berhasil karena user udah klik amplop)
-      if (CONFIG.musicUrl && musicEl.paused) {
-        musicEl.play().then(() => {
-          document.getElementById('music-toggle').classList.add('playing');
-          document.getElementById('music-toggle').textContent = '🎶';
-        }).catch(() => { });
-      }
     }
-
-    // Render galeri foto (pakai link dari CONFIG kalau ada)
     function renderGallery() {
       if (CONFIG.photos.length === 0) return; // biarkan placeholder default
       const grid = document.getElementById('gallery-grid');
